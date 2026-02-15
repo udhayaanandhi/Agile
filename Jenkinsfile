@@ -1,10 +1,24 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Running from Git'
+                git 'https://github.com/username/mini-ci-project.git'
             }
+        }
+        stage('Compile') {
+            steps {
+                sh 'javac Hello.java'
+            }
+        }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: '*.class'
+            echo 'Build Successful - Artifact Archived'
+        }
+        failure {
+            echo 'Build Failed'
         }
     }
 }
