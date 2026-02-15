@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/username/mini-ci-project.git'
-            }
-        }
         stage('Compile') {
             steps {
-                sh 'javac Hello.java'
+                bat 'javac Hello.java'
+            }
+        }
+        stage('Run') {
+            steps {
+                bat 'java Hello'
             }
         }
     }
